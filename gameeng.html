@@ -513,11 +513,11 @@
                         <span class="sqm">Approx. under 40 sqm</span>
                     </div>
                     <div class="type-tag" data-val="A_Large" onclick="selectArea('A_Large', this)">
-                        <span>431 - 1075 sq ft</span>
+                        <span>431 - 1,075 sq ft</span>
                         <span class="sqm">Approx. 40 - 100 sqm</span>
                     </div>
                     <div class="type-tag" data-val="B_Group" onclick="selectArea('B_Group', this)">
-                        <span>1076 sq ft or above</span>
+                        <span>1,076 sq ft or above</span>
                         <span class="sqm">Approx. over 100 sqm</span>
                     </div>
                 </div>
@@ -682,11 +682,11 @@
             if (!startTimestamp) startTimestamp = timestamp;
             const progress = Math.min((timestamp - startTimestamp) / duration, 1);
             const easeOut = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-            el.innerHTML = prefix + Math.floor(easeOut * (end - start) + start) + suffix;
+            el.innerHTML = prefix + Math.floor(easeOut * (end - start) + start).toLocaleString('en-US') + suffix;
             if (progress < 1) {
                 window.requestAnimationFrame(step);
             } else {
-                el.innerHTML = prefix + end + suffix;
+                el.innerHTML = prefix + Number(end).toLocaleString('en-US') + suffix;
             }
         };
         window.requestAnimationFrame(step);
@@ -768,10 +768,10 @@
                         <path d="M 10 40 L 50 10 L 90 40 L 90 90 L 10 90 Z" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
                     </svg>
                     <div class="house-text" id="res-area">0 sq ft</div>
-                    <div class="house-sqm">Approx. ${areaSqm} sqm</div>
+                    <div class="house-sqm">Approx. ${Number(areaSqm).toLocaleString('en-US')} sqm</div>
                 </div>
                 <div class="result-text">
-                    In ${areaNameForPrivate},<br>this budget can rent about <strong>${area} sq ft</strong> of space.
+                    In ${areaNameForPrivate},<br>this budget can rent about <strong>${Number(area).toLocaleString('en-US')} sq ft</strong> of space.
                 </div>
             </div>
         `;

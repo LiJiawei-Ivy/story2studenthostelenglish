@@ -88,7 +88,7 @@
 
 <button class="caption-toggle-btn" onclick="toggleCaption('fig2-caption', this)">Show Caption (Alt Text)</button>
 <div id="fig2-caption" class="caption-text">
-  Caption: A 100% stacked horizontal bar chart showing the total student population and bed ratio of the eight public universities (2023/24 or 2024/25 academic year). The chart shows that PolyU and HKU have the lowest bed coverage rates, both below 20%, while CUHK and Lingnan have the highest coverage rates at around 45%. Data also shows that HKU and PolyU have the most severe bed shortages, with shortfalls of approximately 34500 and 23800 beds respectively.
+  Caption: A 100% stacked horizontal bar chart showing the total student population and bed ratio of the eight public universities (2023/24 or 2024/25 academic year). The chart shows that PolyU and HKU have the lowest bed coverage rates, both below 20%, while CUHK and Lingnan have the highest coverage rates at around 45%. Data also shows that HKU and PolyU have the most severe bed shortages, with shortfalls of approximately 34,500 and 23,800 beds respectively.
 </div>
 
 <script>
@@ -111,11 +111,7 @@
     const totalStudents = rawData.map(item => item[1]);
     const ratioData = rawData.map(item => item[4]);
 
-    const formatNumber = (num) => {
-        if (num >= 10000) return (num / 1000).toFixed(1) + 'K';
-        if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-        return num.toString();
-    };
+    const formatNumber = (num) => Number(num).toLocaleString('en-US');
 
     var option = {
         tooltip: {
@@ -134,9 +130,9 @@
                 let coverage = ((dorm / total) * 100).toFixed(1);
                 
                 return `<b>${name}</b><br/>
-                        Total Students: ${total}<br/>
-                        Beds: ${dorm}<br/>
-                        Bed Shortage: <span style="color:var(--rust);font-weight:bold;">-${short}</span><br/>
+                        Total Students: ${formatNumber(total)}<br/>
+                        Beds: ${formatNumber(dorm)}<br/>
+                        Bed Shortage: <span style="color:var(--rust);font-weight:bold;">-${formatNumber(short)}</span><br/>
                         Student-to-Bed Ratio: ${ratio}<br/>
                         Bed Coverage Rate: ${coverage}%`;
             }

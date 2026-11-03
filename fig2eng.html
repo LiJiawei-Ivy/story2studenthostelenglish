@@ -170,8 +170,8 @@
 </head>
 <body>
 
-<h1>Government Completed 7800, Market Operating 6900</h1>
-<p class="dek">Government/universities aim to provide 13500 beds; market plans reach 23200.<br>(Each small house represents 200 beds; <strong>hover over the light-colored section under Government/Universities to view ongoing project details</strong>)</p>
+<h1>Government Completed 7,800, Market Operating 6,900</h1>
+<p class="dek">Government/universities aim to provide 13,500 beds; market plans reach 23,200.<br>(Each small house represents 200 beds; <strong>hover over the light-colored section under Government/Universities to view ongoing project details</strong>)</p>
 <div class="legend-row">
   <div class="legend-item">
     <svg viewBox="0 0 24 24" class="legend-icon"><path d="M12 3 L2 11 L4 13 L4 21 L20 21 L20 13 L22 11 L12 3 Z" fill="var(--rust)"/></svg>
@@ -186,23 +186,23 @@
 <div class="waffle-wrapper">
   <div class="matrix-section">
     <div class="matrix-header">Government / Universities</div>
-    <div class="matrix-sub">Total 13500 beds</div>
+    <div class="matrix-sub">Total 13,500 beds</div>
     <div class="grid" id="gov-grid"></div>
   </div>
 
   <div class="matrix-section">
     <div class="matrix-header">Market (Private Student Accommodation)</div>
-    <div class="matrix-sub">Total 23200 beds</div>
+    <div class="matrix-sub">Total 23,200 beds</div>
     <div class="grid" id="market-grid"></div>
   </div>
 
   <div class="floating-labels">
     <div>
-      <strong>5100</strong>
+      <strong>5,100</strong>
       Urban Student Hostel Applications (not included)
     </div>
     <div>
-      <strong>4500</strong>
+      <strong>4,500</strong>
       Three Sites Expression of Interest (not included)
     </div>
   </div>
@@ -219,14 +219,14 @@
     <li>Each small house represents 200 beds; the 7 ongoing projects are arranged consecutively in light-colored houses. Hover to highlight all houses in the same project and show details.</li>
     <li>The number of houses for ongoing projects is calculated by rounding "beds ÷ 200", so there may be slight discrepancies with actual bed counts.</li>
     <li>Ongoing projects are sorted by bed count from highest to lowest, not representing actual geographic location.</li>
-    <li>The 5100 beds from "Urban Student Hostel" and 4500 from the "Three Sites" are at the application or expression of interest stage, not yet confirmed, and are not included in the chart.</li>
+    <li>The 5,100 beds from "Urban Student Hostel" and 4,500 from the "Three Sites" are at the application or expression of interest stage, not yet confirmed, and are not included in the chart.</li>
   </ul>
 </div>
 <div class="source">Source: HKSAR EDB, DEVB, official university data, JLL | Graphic: Yu Ziqi</div>
 
 <button class="caption-toggle-btn" onclick="toggleCaption('fig2-caption', this)">Show Caption (Alt Text)</button>
 <div id="fig2-caption" class="caption-text">
-  Caption: A waffle chart showing the vast volume gap between government and market in providing student beds. The left side shows the government providing only 13500 beds, while the right side shows the market planning 23200 beds, with most market beds still in the uncompleted planning stage.
+  Caption: A waffle chart showing the vast volume gap between government and market in providing student beds. The left side shows the government providing only 13,500 beds, while the right side shows the market planning 23,200 beds, with most market beds still in the uncompleted planning stage.
 </div>
 
 <script>
@@ -289,7 +289,7 @@
 
     const showTooltip = (e) => {
       ttName.textContent = name;
-      ttValue.textContent = beds;
+      ttValue.textContent = Number(beds).toLocaleString('en-US');
       tooltip.style.opacity = '1';
       tooltip.style.visibility = 'visible';
       tooltip.style.left = (e.clientX + 15) + 'px';

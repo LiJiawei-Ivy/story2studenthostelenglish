@@ -70,7 +70,7 @@
 </head>
 <body>
 
-<h1>Non-local Students Surge 45.5% in Two Years, Target 100000 by 2029/30</h1>
+<h1>Non-local Students Surge 45.5% in Two Years, Target 100,000 by 2029/30</h1>
 <p class="dek">Non-local students in locally accredited full-time post-secondary programmes, including UGC-funded and self-financing programmes. The cap rose to 40% from 2024/25 and will further rise to 50% from 2026/27.</p>
 
 <div id="chart-container"></div>
@@ -78,20 +78,22 @@
 <div class="note">
   <h3>Notes</h3>
   <ul>
-    <li>This chart does not include the policy cap percentage; 79300 is the territory-wide figure, not the non-local student count for the eight universities, and cannot be used to infer whether the cap is fully utilized.</li>
+    <li>This chart does not include the policy cap percentage; 79,300 is the territory-wide figure, not the non-local student count for the eight universities, and cannot be used to infer whether the cap is fully utilized.</li>
     <li>Official complete data for the 2025/26 to 2028/29 academic years are unavailable; these years are left blank in the chart.</li>
-    <li>The 100000 target for 2029/30 is set in the 2024 Policy Address and is not an official forecast.</li>
+    <li>The 100,000 target for 2029/30 is set in the 2024 Policy Address and is not an official forecast.</li>
   </ul>
 </div>
 <div class="source">Source: EDB submission to LegCo, 2024 Policy Address | Graphic: Yu Ziqi</div>
 
 <button class="caption-toggle-btn" onclick="toggleCaption('fig1-caption', this)">Show Caption (Alt Text)</button>
 <div id="fig1-caption" class="caption-text">
-  Caption: A line chart showing the growth trend of non-local students from 2020/21 to 2024/25 academic years, with a 45.5% increase over two years, and a dashed line indicating the target of 100000 by 2029/30 set in the Policy Address.
+  Caption: A line chart showing the growth trend of non-local students from 2020/21 to 2024/25 academic years, with a 45.5% increase over two years, and a dashed line indicating the target of 100,000 by 2029/30 set in the Policy Address.
 </div>
 
 <script>
     var myChart = echarts.init(document.getElementById('chart-container'));
+
+    function fmt(n){ return Number(n).toLocaleString('en-US'); }
 
     const xData = [
         '2020/21', '2021/22', '2022/23', '2023/24', '2024/25', 
@@ -103,7 +105,7 @@
         { value: 51200, label: { show: false } },
         { value: 54500, label: { show: false } },
         { value: 66100, label: { show: false } }, 
-        { value: 79300, label: { show: true, position: 'top', offset: [0, -12], color: '#C4502A', fontSize: 15, fontWeight: 'bold', formatter: 'Approx. {c}' } },
+        { value: 79300, label: { show: true, position: 'top', offset: [0, -12], color: '#C4502A', fontSize: 15, fontWeight: 'bold', formatter: function(p){ return 'Approx. ' + fmt(p.value); } } },
         null, null, null, null, null
     ];
 
@@ -119,7 +121,7 @@
                 let res = params[0].name + '<br/>';
                 params.forEach(item => {
                     if (item.value) {
-                        res += `${item.marker} ${item.seriesName}: Approx. ${item.value}<br/>`;
+                        res += `${item.marker} ${item.seriesName}: Approx. ${fmt(item.value)}<br/>`;
                     }
                 });
                 return res;
@@ -186,13 +188,13 @@
                     show: true,
                     position: 'top',
                     formatter: function(params) {
-                        return params.value === 100000 ? '100K Target' : '';
+                        return params.value === 100000 ? '100,000 Target' : '';
                     },
                     fontFamily: 'Source Sans 3, Noto Sans TC',
                     fontWeight: 'bold',
                     color: '#C4502A',
                     fontSize: 15,
-                    offset: [0, -12]
+                    offset: [-10, -12]
                 }
             }
         ],
@@ -270,7 +272,7 @@
                             x: 0,
                             y: 0,
                             style: {
-                                text: '+24800, +45.5%',
+                                text: '+24,800, +45.5%',
                                 fill: '#7A8899',
                                 fontSize: 11,
                                 fontFamily: 'Source Sans 3, Noto Sans TC',
