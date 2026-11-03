@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Kind of Room Can Your Budget Hold?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #16293F;      
+            --slate: #5B6573;    
+            --red: #C4502A;      
+            --gray: #B5BAC1;     
+            --warm: #F7F6F3;     
+            --active-bg: #FDF6F4;
+            --paper: #FFFFFF;    
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--paper);
+            color: var(--ink);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 760px;
+            background: var(--paper);
+            border-radius: 24px;
+            border: 1px solid #EAEAEA;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.04);
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bg-image {
+            position: absolute;
+            top: 20%; left: 0%; width: 75%; height: 75%;
+            background-image: url('game_bgp1.JPG'); 
+            background-size: cover;
+            background-position: center;
+            opacity: 0.75; 
+            z-index: 0;
+            pointer-events: none; 
+            -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+            mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+        }
+
+        .bg-image-right {
+            position: absolute;
+            top: 10%; right: -2.5%; left: auto; width: 45%; height: 45%;
+            background-image: url('game_bgp2.JPG'); 
+            background-size: cover;
+            background-position: center;
+            opacity: 0.75; 
+            z-index: 0;
+            pointer-events: none; 
+            -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+            mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 0; align-items: flex-start; }
+            .app-container { min-height: 100vh; border-radius: 0; border: none; box-shadow: none; }
+        }
+
+        .page {
+            display: none;
+            flex-direction: column;
+            padding: 48px 32px;
+            height: 100%;
+            flex: 1;
+            text-align: center;
+            animation: fadeIn 0.4s ease forwards;
+            position: relative;
+            z-index: 2;
+        }
+        .page.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        #page-1 { justify-content: center; align-items: center; position: relative; }
+        
+        .title-wrapper { position: relative; margin-bottom: 60px; }
+        .title-main {
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--ink);
+            position: relative;
+            z-index: 10;
+        }
+
+        .float-emoji { position: absolute; font-size: 32px; z-index: 1; opacity: 0.85; }
+        .emoji-1 { top: -30px; left: -40px; animation: float 3s ease-in-out infinite; }
+        .emoji-2 { top: 20px; right: -50px; animation: float 4s ease-in-out infinite 0.5s; }
+        .emoji-3 { bottom: -30px; left: 10px; animation: float 3.5s ease-in-out infinite 1s; }
+        .emoji-4 { bottom: -40px; right: -20px; animation: float 4.5s ease-in-out infinite 1.5s; }
+        .emoji-5 { top: -40px; right: 30px; animation: float 3.2s ease-in-out infinite 0.8s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(5deg); }
+        }
+
+        .subtitle { font-size: 18px; color: var(--slate); margin-bottom: 50px; }
+
+        .btn {
+            background: var(--red);
+            color: var(--paper);
+            border: none;
+            padding: 16px 48px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: inline-block;
+        }
+        .btn:hover:not(:disabled) { 
+            opacity: 0.95; 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(196, 80, 42, 0.25);
+        }
+        .btn:active:not(:disabled) { transform: scale(0.96); }
+        
+        .btn-secondary { background: var(--warm); color: var(--ink); }
+        .btn-secondary:hover:not(:disabled) { background: #EFECE6; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .step-indicator { font-size: 14px; color: var(--gray); margin-bottom: 24px; letter-spacing: 1px; }
+        .section-label { font-size: 20px; font-weight: 700; margin-bottom: 24px; color: var(--ink); }
+
+        #page-2 { justify-content: center; }
+        .mode-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 400px;
+            margin: 0 auto 48px auto;
+            width: 100%;
+        }
+        .mode-card {
+            background: var(--warm);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 24px;
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--slate);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .mode-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .mode-card span { display: block; font-size: 14px; font-weight: 400; margin-top: 4px; color: var(--gray); }
+        .mode-card.active { 
+            color: var(--red); 
+            background: var(--active-bg);
+            border-color: var(--red);
+            box-shadow: 0 8px 24px rgba(196, 80, 42, 0.12);
+            transform: translateY(-1px);
+        }
+        .mode-card.active span { color: var(--red); opacity: 0.7; }
+
+        #page-3 { justify-content: flex-start; overflow-y: auto; }
+        
+        .region-block {
+            max-width: 480px;
+            margin: 0 auto 16px auto;
+            width: 100%;
+        }
+        
+        .region-card {
+            background: var(--warm);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 20px;
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--slate);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .region-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .region-card.active { 
+            color: var(--red); 
+            background: var(--active-bg);
+            border-color: var(--red);
+            box-shadow: 0 8px 24px rgba(196, 80, 42, 0.12);
+            transform: translateY(-1px);
+        }
+        
+        .sub-regions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.4s ease, margin-top 0.4s ease;
+            padding-left: 16px;
+            border-left: 2px solid transparent;
+            margin-left: 16px;
+            margin-top: 0;
+        }
+        .sub-regions.active {
+            max-height: 500px;
+            opacity: 1;
+            border-left-color: var(--warm);
+            margin-top: 8px;
+        }
+        .sub-card {
+            background: var(--paper);
+            border: 2px solid var(--warm);
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--slate);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sub-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .sub-card span { font-size: 13px; font-weight: 400; color: var(--gray); }
+        .sub-card.active { 
+            border-color: var(--red); 
+            color: var(--red); 
+            background: var(--active-bg); 
+            box-shadow: 0 8px 24px rgba(196, 80, 42, 0.12);
+            transform: translateY(-1px);
+        }
+
+        #page-4 { justify-content: space-between; min-height: 550px; }
+        
+        .content-center {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .type-tags {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+            margin: 0 auto 32px auto;
+            width: 100%;
+        }
+        .type-tag {
+            background: var(--warm);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 16px;
+            color: var(--slate);
+            font-size: 16px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .type-tag:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .type-tag .sqm { font-size: 13px; color: var(--gray); font-weight: 400; }
+        .type-tag.active { 
+            color: var(--red); 
+            background: var(--active-bg); 
+            border-color: var(--red);
+            box-shadow: 0 8px 24px rgba(196, 80, 42, 0.12);
+            transform: translateY(-1px);
+        }
+        .type-tag.active .sqm { color: var(--red); opacity: 0.7; }
+
+        .budget-wrapper {
+            display: inline-flex;
+            align-items: center;
+            background: var(--warm);
+            padding: 16px 40px;
+            border-radius: 20px;
+            margin-bottom: 32px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .budget-wrapper:focus-within { 
+            background: var(--paper); 
+            box-shadow: 0 4px 16px rgba(196, 80, 42, 0.1); 
+            border-color: var(--red);
+        }
+        .budget-wrapper span { font-size: 32px; font-weight: 700; color: var(--slate); margin-right: 12px; }
+        .budget-wrapper input {
+            border: none;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--red);
+            width: 180px;
+            outline: none;
+            font-family: inherit;
+            background: transparent;
+            text-align: center;
+        }
+
+        .bottom-actions { display: flex; justify-content: center; gap: 16px; width: 100%;}
+
+        #page-5 { justify-content: flex-start; }
+        .result-header { font-size: 26px; font-weight: 700; margin-bottom: 40px; }
+        .result-header span { color: var(--red); }
+
+        .result-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch; 
+            gap: 24px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .result-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 300px;
+            background: var(--warm); 
+            border-radius: 20px;
+            padding: 32px 24px;
+        }
+        
+        .result-title { font-size: 18px; font-weight: 700; color: var(--slate); margin-bottom: 24px; }
+        .student-box .result-title { color: var(--red); }
+        .private-box .result-title { color: var(--ink); }
+
+        .svg-house-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .svg-house-container svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .house-text {
+            position: relative;
+            z-index: 10;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-top: -10px; 
+        }
+        .house-sqm {
+            position: relative;
+            z-index: 10;
+            font-size: 12px;
+            color: var(--slate);
+            margin-top: 4px;
+            font-weight: 700;
+        }
+
+        .beds-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            min-height: 160px;
+            margin-bottom: 24px;
+            width: 100%;
+        }
+        .bed-icon { width: 48px; height: 48px; }
+
+        .result-text {
+            font-size: 16px;
+            color: var(--slate);
+            line-height: 1.6;
+            text-align: center;
+            margin-top: auto; 
+            width: 100%;
+        }
+        .result-text strong { color: var(--ink); font-size: 18px; }
+        .result-text.highlight strong { color: var(--red); }
+
+        .footnote { font-size: 12px; color: var(--gray); text-align: center; margin-top: auto; padding-top: 24px; line-height: 1.5; }
+
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="bg-image"></div>
+    <div class="bg-image-right"></div>
+    
+    <div id="page-1" class="page active">
+        <div class="title-wrapper">
+            <span class="float-emoji emoji-1">💰</span>
+            <span class="float-emoji emoji-2">🏠</span>
+            <span class="float-emoji emoji-3">🛏️</span>
+            <span class="float-emoji emoji-4">🏢</span>
+            <span class="float-emoji emoji-5">🔑</span>
+            
+            <h1 class="title-main">What Kind of Room<br>Can Your Budget Hold?</h1>
+        </div>
+        
+        <p class="subtitle">For the same monthly rent, how big is the difference between renting a private flat and a student hostel?</p>
+        <button class="btn" onclick="goToPage(2)">Start</button>
+    </div>
+
+    <div id="page-2" class="page">
+        <div class="step-indicator">Step 1 / 4</div>
+        <div class="section-label">What type of housing do you want to rent?</div>
+        
+        <div class="mode-list">
+            <div class="mode-card active" data-val="private" onclick="selectMode('private', this)">
+                Private Flat
+                <span>More space, but you need to find roommates</span>
+            </div>
+            <div class="mode-card" data-val="student" onclick="selectMode('student', this)">
+                Student Hostel
+                <span>Move-in ready, but very small space</span>
+            </div>
+        </div>
+
+        <button class="btn btn-secondary" id="btn-step2-next" onclick="goToPage(3)">Next</button>
+    </div>
+
+    <div id="page-3" class="page">
+        <div class="step-indicator">Step 2 / 4</div>
+        <div class="section-label" id="region-title">Which district do you want to rent in?</div>
+        
+        <div id="private-regions" style="display: block;">
+            <div class="region-block">
+                <div class="region-card" onclick="toggleSubRegions('kowloon', this)">Kowloon <span>▼</span></div>
+                <div class="sub-regions" id="sub-kowloon">
+                    <div class="sub-card" onclick="selectSubRegion('k1', 63, this)">Kowloon Tong / Ho Man Tin <span>(Traditional luxury)</span></div>
+                    <div class="sub-card" onclick="selectSubRegion('k2', 58, this)">Mong Kok / Tsim Sha Tsui <span>(Core hustle & bustle)</span></div>
+                    <div class="sub-card" onclick="selectSubRegion('k3', 50, this)">Sham Shui Po / Kai Tak <span>(Affordable old districts)</span></div>
+                </div>
+            </div>
+            <div class="region-block">
+                <div class="region-card" onclick="toggleSubRegions('hk', this)">Hong Kong Island <span>▼</span></div>
+                <div class="sub-regions" id="sub-hk">
+                    <div class="sub-card" onclick="selectSubRegion('h1', 68, this)">Central / Mid-Levels West <span>(Financial core)</span></div>
+                    <div class="sub-card" onclick="selectSubRegion('h2', 62, this)">Wan Chai / Causeway Bay <span>(Commercial hub)</span></div>
+                    <div class="sub-card" onclick="selectSubRegion('h3', 52, this)">Taikoo Shing / Quarry Bay <span>(Middle-class community)</span></div>
+                </div>
+            </div>
+            <div class="region-block">
+                <div class="region-card" onclick="toggleSubRegions('nt', this)">New Territories <span>▼</span></div>
+                <div class="sub-regions" id="sub-nt">
+                    <div class="sub-card" onclick="selectSubRegion('n1', 48, this)">Shatin / Tai Wai / Tsuen Wan <span>(Transport hubs)</span></div>
+                    <div class="sub-card" onclick="selectSubRegion('n2', 38, this)">Tseung Kwan O / Yuen Long <span>(New towns)</span></div>
+                    <div class="sub-card" onclick="selectSubRegion('n3', 33, this)">Tai Po / Fanling / Sheung Shui <span>(Remote & affordable)</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="student-regions" style="display: none;">
+            <div class="region-block">
+                <div class="region-card" onclick="selectStudentRegion('s1', 'HK Island West', 'HongKong', this)">HK Island West <span>Near HKU</span></div>
+            </div>
+            <div class="region-block">
+                <div class="region-card" onclick="selectStudentRegion('s2', 'Tsim Sha Tsui', 'Kowloon', this)">Tsim Sha Tsui / Yau Tsim Mong <span>Near PolyU</span></div>
+            </div>
+            <div class="region-block">
+                <div class="region-card" onclick="selectStudentRegion('s3', 'Kai Tak', 'Kowloon', this)">Kai Tak / Kowloon City <span>CityU / HKBU</span></div>
+            </div>
+            <div class="region-block">
+                <div class="region-card" onclick="selectStudentRegion('s4', 'Kwai Chung', 'NewTerritories', this)">Kwai Chung <span>Transport hub</span></div>
+            </div>
+        </div>
+
+        <div class="bottom-actions" style="margin-top:auto;">
+            <button class="btn btn-secondary" onclick="goToPage(2)">Back</button>
+            <button class="btn" id="btn-step3-next" onclick="goToPage(4)" disabled>Next</button>
+        </div>
+    </div>
+
+    <div id="page-4" class="page">
+        <div class="content-center">
+            <div class="step-indicator" style="margin-bottom: 24px;">Step 3 / 4</div>
+
+            <div id="area-selection-block" style="width:100%;">
+                <div class="section-label">Choose the total area of your ideal unit</div>
+                <div style="font-size:14px; color:var(--slate); margin-bottom:16px;">(Total area of the whole flat, not per capita)</div>
+                
+                <div class="type-tags">
+                    <div class="type-tag active" data-val="A_Small" onclick="selectArea('A_Small', this)">
+                        <span>&lt; 430 sq ft</span>
+                        <span class="sqm">Approx. under 40 sqm</span>
+                    </div>
+                    <div class="type-tag" data-val="A_Large" onclick="selectArea('A_Large', this)">
+                        <span>431 - 1075 sq ft</span>
+                        <span class="sqm">Approx. 40 - 100 sqm</span>
+                    </div>
+                    <div class="type-tag" data-val="B_Group" onclick="selectArea('B_Group', this)">
+                        <span>1076 sq ft or above</span>
+                        <span class="sqm">Approx. over 100 sqm</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="budget-input-block" style="width:100%;">
+                <div class="section-label" style="margin-top: 24px;">Enter monthly rent budget (HKD)</div>
+                <div class="budget-wrapper">
+                    <span>$</span>
+                    <input type="number" id="budget-input" value="20000" min="1000" step="1000" oninput="checkStep4()">
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-actions">
+            <button class="btn btn-secondary" onclick="goToPage(3)">Back</button>
+            <button class="btn" id="btn-step4-next" onclick="calculateAndShow()">View Results</button>
+        </div>
+    </div>
+
+    <div id="page-5" class="page">
+        <div class="result-header">Your Budget <span id="res-budget">$0</span></div>
+        
+        <div class="result-container" id="result-container">
+        </div>
+
+        <div class="footnote">
+            *Note: Private flat data is estimated based on average unit rent of actual listings in popular areas in 2026; Student hostel data is based on public media quotes in October 2026. 1 sqm ≈ 10.764 sq ft.
+        </div>
+
+        <div style="margin-top: 24px;">
+            <button class="btn btn-secondary" onclick="goToPage(1)">Restart</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let currentMode = 'private'; 
+    let currentAreaRate = 0;     
+    let currentAreaName = '';    
+    let currentAreaType = 'A_Small'; 
+    
+    let studentToPrivateRegion = 'Kowloon'; 
+
+    const privateBaseline = {
+        HongKong: { A_Small: 65, A_Large: 55, B_Group: 50 },
+        Kowloon: { A_Small: 58, A_Large: 50, B_Group: 45 },
+        NewTerritories: { A_Small: 42, A_Large: 35, B_Group: 30 }
+    };
+
+    const studentAccData = {
+        HongKong: [
+            { minPrice: 16000, maxPrice: 18000, room: "single room", project: "Mid-Levels West 'One Pace · 38'" },
+            { minPrice: 11300, maxPrice: 14000, room: "twin room", project: "Mid-Levels West 'One Pace · 38'" }
+        ],
+        Kowloon: [
+            { minPrice: 18000, maxPrice: 20000, room: "single room", project: "Tsim Sha Tsui 'One Pace · 117'" },
+            { minPrice: 9900, maxPrice: 18000, room: "single room", project: "Kwai Chung 'Brim'" }, 
+            { minPrice: 9100, maxPrice: 9100, room: "twin room", project: "Tsim Sha Tsui 'One Pace · 117'" },
+            { minPrice: 6800, maxPrice: 7900, room: "twin room", project: "Kwai Chung 'Brim'" },
+            { minPrice: 6100, maxPrice: 6400, room: "triple/quad room", project: "Kai Tak 'Yihui'" }
+        ],
+        NewTerritories: [
+            { minPrice: 9900, maxPrice: 18000, room: "single room", project: "Kwai Chung 'Brim'" },
+            { minPrice: 6800, maxPrice: 7900, room: "twin room", project: "Kwai Chung 'Brim'" }
+        ]
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+        checkStep4(); 
+    });
+
+    function goToPage(num) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(`page-${num}`).classList.add('active');
+        
+        if (num === 3) {
+            currentAreaName = ''; 
+            checkStep3();
+        } else if (num === 4) {
+            checkStep4();
+        }
+        
+        window.scrollTo(0,0);
+    }
+
+    function selectMode(mode, el) {
+        currentMode = mode;
+        document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+        
+        document.querySelectorAll('.region-card, .sub-card').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.sub-regions').forEach(s => s.classList.remove('active'));
+        currentAreaRate = 0;
+        currentAreaName = '';
+        checkStep3(); 
+
+        if (mode === 'private') {
+            document.getElementById('region-title').innerText = 'Which district do you want to rent in?';
+            document.getElementById('private-regions').style.display = 'block';
+            document.getElementById('student-regions').style.display = 'none';
+            document.getElementById('area-selection-block').style.display = 'block';
+        } else {
+            document.getElementById('region-title').innerText = 'Which student hostel area do you want to rent in?';
+            document.getElementById('private-regions').style.display = 'none';
+            document.getElementById('student-regions').style.display = 'block';
+            document.getElementById('area-selection-block').style.display = 'none'; 
+        }
+    }
+
+    function toggleSubRegions(regionKey, el) {
+        document.querySelectorAll('.region-card').forEach(c => {
+            if(c !== el) c.classList.remove('active');
+        });
+        document.querySelectorAll('.sub-regions').forEach(s => {
+            if(s.id !== 'sub-' + regionKey) s.classList.remove('active');
+        });
+        
+        el.classList.toggle('active');
+        document.getElementById('sub-' + regionKey).classList.toggle('active');
+    }
+
+    function selectSubRegion(id, rate, el) {
+        event.stopPropagation();
+        document.querySelectorAll('.sub-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+        currentAreaRate = rate;
+        currentAreaName = el.innerText.split(' ')[0]; 
+        checkStep3();
+    }
+
+    function selectStudentRegion(id, name, mapRegion, el) {
+        document.querySelectorAll('#student-regions .region-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+        currentAreaName = name;
+        studentToPrivateRegion = mapRegion;
+        checkStep3();
+    }
+
+    function selectArea(val, el) {
+        document.querySelectorAll('.type-tag').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+        currentAreaType = val;
+        checkStep4();
+    }
+
+    function checkStep3() {
+        const btn = document.getElementById('btn-step3-next');
+        btn.disabled = !currentAreaName;
+    }
+
+    function checkStep4() {
+        const btn = document.getElementById('btn-step4-next');
+        const budget = parseFloat(document.getElementById('budget-input').value);
+        btn.disabled = !(currentAreaType && budget >= 1000);
+    }
+
+    function animateValue(el, start, end, duration, prefix = '', suffix = '') {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const easeOut = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+            el.innerHTML = prefix + Math.floor(easeOut * (end - start) + start) + suffix;
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            } else {
+                el.innerHTML = prefix + end + suffix;
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    function getBedSVG() {
+        return `
+        <svg class="bed-icon" viewBox="0 0 100 100">
+            <rect x="10" y="30" width="30" height="20" rx="4" fill="none" stroke="var(--red)" stroke-width="6"/>
+            <rect x="10" y="50" width="80" height="30" rx="4" fill="none" stroke="var(--red)" stroke-width="6"/>
+            <line x1="20" y1="65" x2="80" y2="65" stroke="var(--red)" stroke-width="4" stroke-dasharray="6,4"/>
+        </svg>`;
+    }
+
+    function calculateAndShow() {
+        const budget = parseFloat(document.getElementById('budget-input').value) || 0;
+        if(budget < 1000) return;
+
+        goToPage(5);
+        
+        animateValue(document.getElementById('res-budget'), 0, budget, 1000, '$');
+        
+        let rate = 0;
+        let areaNameForPrivate = '';
+        
+        if (currentMode === 'private') {
+            rate = currentAreaRate;
+            areaNameForPrivate = currentAreaName;
+        } else {
+            rate = privateBaseline[studentToPrivateRegion][currentAreaType] || 55;
+            areaNameForPrivate = studentToPrivateRegion === 'HongKong' ? 'HK Island' : (studentToPrivateRegion === 'Kowloon' ? 'Kowloon' : 'New Territories');
+        }
+        
+        const area = Math.round(budget / rate);
+        const areaSqm = Math.round(area / 10.764);
+
+        let studentHtml = '';
+        let bedsHtml = '';
+        
+        let regionData = [];
+        if (currentMode === 'private') {
+            let matchRegion = 'Kowloon';
+            if (['Central / Mid-Levels West', 'Wan Chai / Causeway Bay', 'Taikoo Shing / Quarry Bay'].includes(currentAreaName)) matchRegion = 'HongKong';
+            else if (['Shatin / Tai Wai / Tsuen Wan', 'Tseung Kwan O / Yuen Long', 'Tai Po / Fanling / Sheung Shui'].includes(currentAreaName)) matchRegion = 'NewTerritories';
+            regionData = studentAccData[matchRegion];
+        } else {
+            if (currentAreaName === 'HK Island West') regionData = studentAccData['HongKong'];
+            else if (currentAreaName === 'Tsim Sha Tsui' || currentAreaName === 'Kai Tak') regionData = studentAccData['Kowloon'];
+            else regionData = studentAccData['NewTerritories']; 
+        }
+
+        const matched = regionData.find(opt => budget >= opt.minPrice);
+        
+        if (matched) {
+            const bedCount = Math.floor(budget / matched.minPrice);
+            let visualCount = Math.min(bedCount, 9); 
+            
+            for(let i=0; i<visualCount; i++) {
+                bedsHtml += getBedSVG();
+            }
+            
+            if (bedCount === 1) {
+                studentHtml = `You can rent <strong>1 ${matched.room} bed</strong>.`;
+            } else if (bedCount > 1 && bedCount <= 3) {
+                studentHtml = `Your budget is sufficient for a suite with <strong>${bedCount} ${matched.room} beds</strong>.`;
+            } else {
+                studentHtml = `Your budget is very ample, <strong>enough to cover ${bedCount} ${matched.room} beds</strong>.`;
+            }
+        } else {
+            bedsHtml = `<div style="color:var(--gray); font-size:15px; margin-top:60px;">Cannot afford a bed</div>`;
+            studentHtml = `Your budget is below the minimum bed price for private student accommodation in this district.<br><span style="font-size:14px; color:var(--slate)">You might consider university hostels instead.</span>`;
+        }
+
+        const privateCard = `
+            <div class="result-box private-box">
+                <div class="result-title">Private Flat (${areaNameForPrivate})</div>
+                <div class="svg-house-container">
+                    <svg viewBox="0 0 100 100">
+                        <path d="M 10 40 L 50 10 L 90 40 L 90 90 L 10 90 Z" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="house-text" id="res-area">0 sq ft</div>
+                    <div class="house-sqm">Approx. ${areaSqm} sqm</div>
+                </div>
+                <div class="result-text">
+                    In ${areaNameForPrivate},<br>this budget can rent about <strong>${area} sq ft</strong> of space.
+                </div>
+            </div>
+        `;
+
+        const studentCard = `
+            <div class="result-box student-box">
+                <div class="result-title">Student Hostel (${currentMode === 'student' ? currentAreaName : 'Same District'})</div>
+                <div class="beds-container">
+                    ${bedsHtml}
+                </div>
+                <div class="result-text highlight">
+                    ${studentHtml}
+                </div>
+            </div>
+        `;
+
+        const container = document.getElementById('result-container');
+        if (currentMode === 'private') {
+            container.innerHTML = privateCard + studentCard;
+        } else {
+            container.innerHTML = studentCard + privateCard;
+        }
+
+        setTimeout(() => {
+            const resAreaEl = document.getElementById('res-area');
+            if (resAreaEl) animateValue(resAreaEl, 0, area, 1000, '', ' sq ft');
+        }, 50);
+    }
+</script>
+</body>
+</html>

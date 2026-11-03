@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Figure 2 | Government and Market Adding Beds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;700&family=Source+Serif+4:wght@700&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rust:#C4502A;
+    --rust-light:#E8C8BF;
+    --grid:#E4E7EB;      
+    --ink:#16293F;       
+    --slate:#5B6573;
+    --paper:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:"Source Sans 3","Noto Sans TC","PingFang HK",sans-serif;
+    color:var(--ink); background:var(--paper);
+    max-width:840px; margin:0 auto; padding:24px 20px 44px;
+  }
+  
+  .kicker{font-size:14px;font-weight:700;letter-spacing:.08em;color:#1F3A5F;text-transform:uppercase;margin-bottom:6px;}
+  h1{font-size:20px;line-height:1.3;font-weight:700;margin-bottom:8px;}
+  .dek{font-size:15px;color:var(--slate);line-height:1.55;margin-bottom:24px;}
+
+  .legend-row {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-icon { width: 18px; height: 18px; }
+
+  .waffle-wrapper {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .matrix-section {
+    flex: 1;
+    min-width: 280px;
+    position: relative;
+  }
+
+  .matrix-header {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .matrix-sub {
+    font-size: 13px;
+    color: var(--slate);
+    margin-bottom: 16px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(10, 16px);
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+
+  .house {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+  .house path {
+    stroke-linejoin: round;
+  }
+  .house.done path { fill: var(--rust); }
+  .house.building path { fill: var(--rust-light); }
+
+  .proj-group {
+    display: contents;
+  }
+  .house.building {
+    cursor: pointer;
+  }
+  .house.building.highlight {
+    outline: 1.5px solid var(--rust);
+    outline-offset: 1px;
+    border-radius: 2px;
+    z-index: 2;
+  }
+
+  #tooltip {
+    position: fixed;
+    background: var(--ink);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.4;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    white-space: nowrap;
+  }
+  #tooltip .tt-name { font-weight: 700; font-size: 14px; margin-bottom: 2px; color: #fff; }
+  #tooltip .tt-value { color: var(--rust-light); font-weight: 700; }
+
+  .floating-labels {
+    flex: 0 0 160px;
+    margin-top: 60px;
+    font-size: 13px;
+    color: var(--slate);
+    border-left: 2px solid var(--grid);
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .floating-labels strong {
+    display: block;
+    color: var(--ink);
+    font-size: 15px;
+  }
+
+  .note{margin-top:18px;font-size:13px;color:var(--slate);line-height:1.6;}
+  .note h3{font-size:14px;color:var(--ink);margin-bottom:6px;}
+  .note ul{padding-left:1.2em;}
+  .note li{margin-bottom:4px;}
+  .source{margin-top:14px;font-size:12px;color:var(--slate);line-height:1.5;}
+
+  .caption-toggle-btn {
+    margin-top: 16px;
+    background-color: #F7F6F3;
+    color: #5B6573;
+    border: 1px solid #E4E7EB;
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background-color 0.2s;
+  }
+  .caption-toggle-btn:hover {
+    background-color: #EFECE6;
+  }
+  .caption-text {
+    display: none;
+    margin-top: 12px;
+    padding: 12px 16px;
+    background-color: #F7F6F3;
+    border-left: 3px solid #C4502A;
+    font-size: 13px;
+    color: #16293F;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .waffle-wrapper { flex-direction: column; gap: 32px; }
+    .floating-labels { flex: auto; margin-top: 0; border-left: none; border-top: 2px solid var(--grid); padding-top: 16px; padding-left: 0; flex-direction: row; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Government Completed 7800, Market Operating 6900</h1>
+<p class="dek">Government/universities aim to provide 13500 beds; market plans reach 23200.<br>(Each small house represents 200 beds; hover over the light-colored section under Government/Universities to view ongoing project details)</p>
+
+<div class="legend-row">
+  <div class="legend-item">
+    <svg viewBox="0 0 24 24" class="legend-icon"><path d="M12 3 L2 11 L4 13 L4 21 L20 21 L20 13 L22 11 L12 3 Z" fill="var(--rust)"/></svg>
+    Completed / Operating
+  </div>
+  <div class="legend-item">
+    <svg viewBox="0 0 24 24" class="legend-icon"><path d="M12 3 L2 11 L4 13 L4 21 L20 21 L20 13 L22 11 L12 3 Z" fill="var(--rust-light)"/></svg>
+    Under Construction / Planned
+  </div>
+</div>
+
+<div class="waffle-wrapper">
+  <div class="matrix-section">
+    <div class="matrix-header">Government / Universities</div>
+    <div class="matrix-sub">Total 13500 beds</div>
+    <div class="grid" id="gov-grid"></div>
+  </div>
+
+  <div class="matrix-section">
+    <div class="matrix-header">Market (Private Student Accommodation)</div>
+    <div class="matrix-sub">Total 23200 beds</div>
+    <div class="grid" id="market-grid"></div>
+  </div>
+
+  <div class="floating-labels">
+    <div>
+      <strong>5100</strong>
+      Urban Student Hostel Applications (not included)
+    </div>
+    <div>
+      <strong>4500</strong>
+      Three Sites Expression of Interest (not included)
+    </div>
+  </div>
+</div>
+
+<div id="tooltip">
+  <div class="tt-name"></div>
+  <div>Provides <span class="tt-value"></span> beds</div>
+</div>
+
+<div class="note">
+  <h3>Notes</h3>
+  <ul>
+    <li>Each small house represents 200 beds; the 7 ongoing projects are arranged consecutively in light-colored houses. Hover to highlight all houses in the same project and show details.</li>
+    <li>The number of houses for ongoing projects is calculated by rounding "beds ÷ 200", so there may be slight discrepancies with actual bed counts.</li>
+    <li>Ongoing projects are sorted by bed count from highest to lowest, not representing actual geographic location.</li>
+    <li>The 5100 beds from "Urban Student Hostel" and 4500 from the "Three Sites" are at the application or expression of interest stage, not yet confirmed, and are not included in the chart.</li>
+  </ul>
+</div>
+<div class="source">Source: HKSAR EDB, DEVB, official university data, JLL | Graphic: Yu Ziqi</div>
+
+<button class="caption-toggle-btn" onclick="toggleCaption('fig2-caption', this)">Show Caption (Alt Text)</button>
+<div id="fig2-caption" class="caption-text">
+  Caption: A waffle chart showing the vast volume gap between government and market in providing student beds. The left side shows the government providing only 13500 beds, while the right side shows the market planning 23200 beds, with most market beds still in the uncompleted planning stage.
+</div>
+
+<script>
+  const houseSvg = (type, width, height) => `
+    <svg viewBox="0 0 24 24" class="house ${type}" style="width:${width}px; height:${height}px;">
+      <path d="M12 3 L2 11 L4 13 L4 21 L20 21 L20 13 L22 11 L12 3 Z" stroke="none" />
+    </svg>
+  `;
+
+  const govGrid = document.getElementById('gov-grid');
+  let govHtml = '';
+
+  for (let i = 0; i < 39; i++) {
+    govHtml += houseSvg('done', 16, 16);
+  }
+
+  const projectsData = [
+    { name: 'CityU Kowloon Tong', beds: 1691 },
+    { name: 'PolyU Kowloon Tong', beds: 1680 },
+    { name: 'PolyU Ho Man Tin', beds: 1279 },
+    { name: 'HKU West Garden',   beds: 938  },
+    { name: 'Site 39',     beds: 394  },
+    { name: 'Chung Chi College',   beds: 300  },
+    { name: 'CUHK Wu Yee Sun', beds: 250  }
+  ];
+
+  projectsData.forEach(p => {
+    const count = Math.max(1, Math.round(p.beds / 200));
+    let cells = '';
+    for (let i = 0; i < count; i++) {
+      cells += houseSvg('building', 16, 16);
+    }
+    govHtml += `
+      <div class="proj-group"
+           data-name="${p.name}"
+           data-beds="${p.beds}">
+        ${cells}
+      </div>
+    `;
+  });
+
+  govGrid.innerHTML = govHtml;
+
+  const marketGrid = document.getElementById('market-grid');
+  let marketHtml = '';
+  for (let i = 0; i < 35; i++) marketHtml += houseSvg('done', 16, 16);
+  for (let i = 0; i < 82; i++) marketHtml += houseSvg('building', 16, 16);
+  marketGrid.innerHTML = marketHtml;
+
+  const tooltip = document.getElementById('tooltip');
+  const ttName = tooltip.querySelector('.tt-name');
+  const ttValue = tooltip.querySelector('.tt-value');
+
+  const groups = document.querySelectorAll('.proj-group');
+
+  groups.forEach(group => {
+    const houses = group.querySelectorAll('.house');
+    const name = group.dataset.name;
+    const beds = group.dataset.beds;
+
+    const showTooltip = (e) => {
+      ttName.textContent = name;
+      ttValue.textContent = beds;
+      tooltip.style.opacity = '1';
+      tooltip.style.visibility = 'visible';
+      tooltip.style.left = (e.clientX + 15) + 'px';
+      tooltip.style.top = (e.clientY + 15) + 'px';
+      houses.forEach(h => h.classList.add('highlight'));
+    };
+
+    const hideTooltip = () => {
+      tooltip.style.opacity = '0';
+      tooltip.style.visibility = 'hidden';
+      houses.forEach(h => h.classList.remove('highlight'));
+    };
+
+    houses.forEach(house => {
+      house.addEventListener('mouseenter', showTooltip);
+      house.addEventListener('mousemove', (e) => {
+        tooltip.style.left = (e.clientX + 15) + 'px';
+        tooltip.style.top = (e.clientY + 15) + 'px';
+      });
+      house.addEventListener('mouseleave', hideTooltip);
+
+      house.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isVisible = tooltip.style.opacity === '1' && ttName.textContent === name;
+        if (isVisible) {
+          hideTooltip();
+        } else {
+          showTooltip(e);
+          const rect = house.getBoundingClientRect();
+          tooltip.style.left = (rect.left + 20) + 'px';
+          tooltip.style.top = (rect.top - 60) + 'px';
+        }
+      });
+    });
+  });
+
+  document.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      tooltip.style.opacity = '0';
+      tooltip.style.visibility = 'hidden';
+      document.querySelectorAll('.house.highlight').forEach(h => h.classList.remove('highlight'));
+    }
+  });
+
+  function toggleCaption(id, btn) {
+    const el = document.getElementById(id);
+    if (el.style.display === 'block') {
+      el.style.display = 'none';
+      btn.textContent = 'Show Caption (Alt Text)';
+    } else {
+      el.style.display = 'block';
+      btn.textContent = 'Hide Caption';
+    }
+  }
+</script>
+
+</body>
+</html>

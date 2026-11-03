@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Figure 4 | Student Accommodation Quotes vs Kowloon Private Flat Rent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;700&family=Source+Serif+4:wght@700&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rust:#C4502A; --grey:#B5BAC1; --blue:#2B6CB0; --jade:#0E9474;
+    --ochre:#B8860B; --violet:#8A4FC4; --grid:#E4E7EB; --ink:#16293F;
+    --uni:#D92B2B;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    font-family:"Source Sans 3","Noto Sans TC","PingFang HK","Microsoft JhengHei",Arial,sans-serif;
+    color:var(--ink); background:#fff;
+    max-width:900px; margin:0 auto; padding:clamp(14px,3vw,28px) clamp(12px,3vw,24px) 48px;
+  }
+  .kicker{font-size:clamp(13px,1.5vw,14px);font-weight:700;letter-spacing:.08em;color:#1F3A5F;text-transform:uppercase;margin-bottom:6px;}
+  h1{font-size:clamp(17px,2vw,18px);line-height:1.3;font-weight:700;font-family:"Source Sans 3","Noto Sans TC","PingFang HK","Microsoft JhengHei",Arial,sans-serif;margin-bottom:8px;}
+  .dek{font-size:15px;color:#5B6573;line-height:1.55;margin-bottom:14px;max-width:680px;}
+
+  .legend{display:flex;flex-wrap:wrap;align-items:center;gap:7px 15px;margin-bottom:7px;color:#5B6573;font-size:13px;}
+  .legend:last-of-type{margin-bottom:12px;}
+  .legend .lt{font-weight:700;color:#16293F;margin-right:2px;}
+  .key{display:flex;align-items:center;gap:6px;white-space:nowrap;}
+  .key .ico{flex-shrink:0;display:block;overflow:visible;}
+
+  .chart{width:100%;background:#fff;}
+  .chart svg{display:block;width:100%;height:auto;}
+  svg text{font-family:inherit;}
+  #fig4svg{font-size:13px;}
+  .axis{font-size:.92em;fill:#5B6573;font-variant-numeric:tabular-nums;}
+  .axis-t{font-size:.85em;fill:#8A93A0;}
+  .grid{stroke:var(--grid);stroke-width:1.5;}
+  .grp{font-size:1.15em;font-weight:700;fill:#16293F;}
+  .refline{stroke:var(--rust);stroke-width:2;stroke-dasharray:7 6;}
+  .reftext{font-size:1em;font-weight:700;fill:#C4502A;}
+  .pt{cursor:default;}
+  .vlab{font-size:.85em;font-weight:700;fill:#16293F;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round;font-variant-numeric:tabular-nums;}
+
+  .note{margin-top:18px;font-size:13px;color:#5B6573;line-height:1.6;}
+  .note h3{font-size:14px;color:#16293F;margin-bottom:6px;}
+  .note ul{padding-left:1.2em;}
+  .note li{margin-bottom:4px;}
+  .source{margin-top:14px;font-size:12px;color:#5B6573;line-height:1.5;}
+  .source ul{margin:4px 0 0 1.2em;padding:0;}
+  .source li{margin-bottom:3px;}
+  .source a{color:#1F4E79;text-decoration:underline;word-break:break-all;}
+  .caption-toggle-btn{margin-top:16px;background-color:#F7F6F3;color:#5B6573;border:1px solid #E4E7EB;padding:6px 16px;border-radius:4px;font-size:13px;cursor:pointer;font-family:inherit;transition:background-color .2s;}
+  .caption-toggle-btn:hover{background-color:#EFECE6;}
+  .caption-text{display:none;margin-top:12px;padding:12px 16px;background-color:#F7F6F3;border-left:3px solid #C4502A;font-size:13px;color:#16293F;line-height:1.6;}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="bedS">
+      <path d="M0.63,6.94 L0.63,2.46 C0.63,0.90 2.03,0 6.96,0 C11.88,0 13.23,0.90 13.23,2.46 L13.23,6.05 Z" fill="currentColor" stroke="none"/>
+      <path d="M0.63,6.94 L0.63,2.46 C0.63,0.90 2.03,0 6.96,0 C11.88,0 13.23,0.90 13.23,2.46 L13.23,6.05 Z" fill="#000" fill-opacity=".10" stroke="none"/>
+      <g fill="currentColor" stroke="none"><path d="M0.90,9.55 L6.05,13.05 L6.05,13.75 L0.90,10.65 Z"/><path d="M6.05,13.05 L18.40,12.65 L18.40,13.45 L6.05,13.75 Z"/></g>
+      <g fill="#000" stroke="none"><path d="M0.90,9.55 L6.05,13.05 L6.05,13.75 L0.90,10.65 Z" fill-opacity=".42"/><path d="M6.05,13.05 L18.40,12.65 L18.40,13.45 L6.05,13.75 Z" fill-opacity=".36"/></g>
+      <g fill="currentColor" stroke="none"><path d="M0.90,6.55 Q3.3,8.45 6.05,10.30 L6.05,13.05 Q3.3,11.2 0.90,9.55 Z"/><path d="M6.05,10.30 Q12.1,10.15 18.40,9.65 L18.40,12.65 Q12.1,13.1 6.05,13.05 Z"/></g>
+      <g fill="#000" stroke="none"><path d="M0.90,6.55 Q3.3,8.45 6.05,10.30 L6.05,13.05 Q3.3,11.2 0.90,9.55 Z" fill-opacity=".30"/><path d="M6.05,10.30 Q12.1,10.15 18.40,9.65 L18.40,12.65 Q12.1,13.1 6.05,13.05 Z" fill-opacity=".17"/></g>
+      <path d="M0.90,6.55 L12.95,5.62 Q16.0,7.45 18.40,9.65 Q12.1,10.15 6.05,10.30 Q3.3,8.45 0.90,6.55 Z" fill="currentColor" stroke="none"/>
+      <path d="M0.90,6.55 L12.95,5.62 Q16.0,7.45 18.40,9.65 Q12.1,10.15 6.05,10.30 Q3.3,8.45 0.90,6.55 Z" fill="#fff" fill-opacity=".08" stroke="none"/>
+      <path d="M1.6,6.9 Q5.5,8.3 7.2,9.6 Q5.0,9.3 3.0,8.15 Q2.2,7.5 1.6,6.9 Z" fill="#fff" fill-opacity=".18" stroke="none"/>
+      <path d="M0.98,9.44 Q3.3,11.15 6.04,12.90 Q12.1,12.95 18.32,12.50" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width=".8" stroke-linecap="round"/>
+      <g fill="none" stroke="#fff" stroke-width="1" stroke-linejoin="round">
+        <path d="M0.63,6.94 L0.63,2.46 C0.63,0.90 2.03,0 6.96,0 C11.88,0 13.23,0.90 13.23,2.46 L13.23,6.05 Z"/>
+        <path d="M0.90,6.55 L12.95,5.62 Q16.0,7.45 18.40,9.65 Q12.1,10.15 6.05,10.30 Q3.3,8.45 0.90,6.55 Z"/>
+        <path d="M0.90,9.55 L6.05,13.05 L6.05,13.75 L0.90,10.65 Z"/>
+        <path d="M6.05,13.05 L18.40,12.65 L18.40,13.45 L6.05,13.75 Z"/>
+      </g>
+      <g fill="currentColor" stroke="none"><rect x="5.55" y="12.40" width="2.3" height="3.20" rx="0.5"/><rect x="16.85" y="12.00" width="2.3" height="3.20" rx="0.5"/><rect x="0.90" y="9.70" width="2.0" height="3.60" rx="0.5"/></g>
+      <g fill="#000" fill-opacity=".36" stroke="none"><rect x="5.55" y="12.40" width="2.3" height="3.20" rx="0.5"/><rect x="16.85" y="12.00" width="2.3" height="3.20" rx="0.5"/><rect x="0.90" y="9.70" width="2.0" height="3.60" rx="0.5"/></g>
+      <g fill="#fff" stroke="none"><rect x="2.15" y="4.37" width="5.15" height="3.02" rx="1.51" transform="rotate(-9 4.72 5.88)"/><rect x="7.52" y="3.92" width="5.15" height="3.02" rx="1.51" transform="rotate(-9 10.10 5.43)"/></g>
+    </g>
+    <g id="bedH">
+      <path d="M0.63,6.94 L0.63,2.46 C0.63,0.90 2.03,0 6.96,0 C11.88,0 13.23,0.90 13.23,2.46 L13.23,6.05 Z" fill="#fff" stroke="currentColor" stroke-width=".9" stroke-linejoin="round"/>
+      <g fill="currentColor" stroke="currentColor" stroke-width=".9" stroke-linejoin="round">
+        <path d="M0.90,9.55 L6.05,13.05 L6.05,13.75 L0.90,10.65 Z" fill-opacity=".20"/><path d="M6.05,13.05 L18.40,12.65 L18.40,13.45 L6.05,13.75 Z" fill-opacity=".14"/>
+      </g>
+      <g fill="currentColor" stroke="currentColor" stroke-width=".9" stroke-linejoin="round">
+        <path d="M0.90,6.55 Q3.3,8.45 6.05,10.30 L6.05,13.05 Q3.3,11.2 0.90,9.55 Z" fill-opacity=".13"/><path d="M6.05,10.30 Q12.1,10.15 18.40,9.65 L18.40,12.65 Q12.1,13.1 6.05,13.05 Z" fill-opacity=".08"/>
+      </g>
+      <path d="M0.90,6.55 L12.95,5.62 Q16.0,7.45 18.40,9.65 Q12.1,10.15 6.05,10.30 Q3.3,8.45 0.90,6.55 Z" fill="#fff" stroke="currentColor" stroke-width=".9" stroke-linejoin="round"/>
+      <g fill="#fff" stroke="currentColor" stroke-width=".9"><rect x="5.55" y="12.40" width="2.3" height="3.20" rx="0.5"/><rect x="16.85" y="12.00" width="2.3" height="3.20" rx="0.5"/><rect x="0.90" y="9.70" width="2.0" height="3.60" rx="0.5"/></g>
+      <g fill="#fff" stroke="currentColor" stroke-width=".9"><rect x="2.15" y="4.37" width="5.15" height="3.02" rx="1.51" transform="rotate(-9 4.72 5.88)"/><rect x="7.52" y="3.92" width="5.15" height="3.02" rx="1.51" transform="rotate(-9 10.10 5.43)"/></g>
+    </g>
+  </defs>
+</svg>
+
+<h1>Student Accommodation Quotes vs Kowloon Private Flat Rent</h1>
+<p class="dek">Monthly rent per bed for each student accommodation (HK$/month), compared with the average price of the eight university hostels and the whole-unit rent of a 431 sq ft two-bedroom flat in Kowloon. Each project has a distinct color, and room types are indicated by the number of stacked bed icons: one layer represents one bed.</p>
+
+<div class="legend">
+<span class="lt">Project</span>
+<span class="key"><svg class="ico" width="16.4" height="13.5" viewBox="0 0 16.4 13.5" aria-hidden="true"><g transform="translate(0.5,0.50) scale(0.80)" style="color:#B03A6E"><use href="#bedS"/></g></svg>One Pace · 117 (Tsim Sha Tsui)</span>
+<span class="key"><svg class="ico" width="16.4" height="13.5" viewBox="0 0 16.4 13.5" aria-hidden="true"><g transform="translate(0.5,0.50) scale(0.80)" style="color:#8A4FC4"><use href="#bedS"/></g></svg>One Pace · 38 (Mid-Levels West)</span>
+<span class="key"><svg class="ico" width="16.4" height="13.5" viewBox="0 0 16.4 13.5" aria-hidden="true"><g transform="translate(0.5,0.50) scale(0.80)" style="color:#0E9474"><use href="#bedS"/></g></svg>Brim (Kwai Chung)</span>
+<span class="key"><svg class="ico" width="16.4" height="13.5" viewBox="0 0 16.4 13.5" aria-hidden="true"><g transform="translate(0.5,0.50) scale(0.80)" style="color:#B8860B"><use href="#bedS"/></g></svg>Yihui · Kai Tak</span>
+<span class="key"><svg class="ico" width="16.4" height="13.5" viewBox="0 0 16.4 13.5" aria-hidden="true"><g transform="translate(0.5,0.50) scale(0.80)" style="color:#1F4E79"><use href="#bedS"/></g></svg>Risun · Kai Tak</span>
+<span class="key"><svg class="ico" width="16.4" height="13.5" viewBox="0 0 16.4 13.5" aria-hidden="true"><g transform="translate(0.5,0.50) scale(0.80)" style="color:#9AA3AE"><use href="#bedS"/></g></svg>Eight Universities Hostels (Average)</span>
+</div>
+<div class="legend">
+<span class="lt">Room Type</span>
+<span class="key"><svg class="ico" width="11.6" height="9.6" viewBox="0 0 11.6 9.6" aria-hidden="true"><g transform="translate(0.5,0.50) scale(0.55)" style="color:#4A5563"><use href="#bedS"/></g></svg>Single = 1 bed</span>
+<span class="key"><svg class="ico" width="11.6" height="10.7" viewBox="0 0 11.6 10.7" aria-hidden="true"><rect x="1.10" y="8.42" width="9.4" height="1.8" rx="1.6" fill="#4A5563"/><g transform="translate(0.5,0.50) scale(0.55)" style="color:#4A5563"><use href="#bedS"/></g></svg>Twin = 2 beds</span>
+<span class="key"><svg class="ico" width="11.6" height="13.0" viewBox="0 0 11.6 13.0" aria-hidden="true"><rect x="1.10" y="8.42" width="9.4" height="1.8" rx="1.6" fill="#4A5563"/><rect x="1.10" y="10.73" width="9.4" height="1.8" rx="1.6" fill="#4A5563"/><g transform="translate(0.5,0.50) scale(0.55)" style="color:#4A5563"><use href="#bedS"/></g></svg>Triple = 3 beds</span>
+<span class="key"><svg class="ico" width="11.6" height="15.3" viewBox="0 0 11.6 15.3" aria-hidden="true"><rect x="1.10" y="8.42" width="9.4" height="1.8" rx="1.6" fill="#4A5563"/><rect x="1.10" y="10.73" width="9.4" height="1.8" rx="1.6" fill="#4A5563"/><rect x="1.10" y="13.04" width="9.4" height="1.8" rx="1.6" fill="#4A5563"/><g transform="translate(0.5,0.50) scale(0.55)" style="color:#4A5563"><use href="#bedS"/></g></svg>Quad = 4 beds</span>
+</div>
+<div class="legend">
+<span class="lt">Legend</span>
+<span class="key"><svg class="ico" width="11.6" height="9.6" viewBox="0 0 11.6 9.6" aria-hidden="true"><g transform="translate(0.5,0.50) scale(0.55)" style="color:#4A5563"><use href="#bedS"/></g></svg>Solid = lower bound</span>
+<span class="key"><svg class="ico" width="19.2" height="16.1" viewBox="0 0 19.2 16.1" style="color:#4A5563"><g transform="translate(0,0.5)"><use href="#bedH"/></g></svg>Hollow = upper bound</span>
+</div>
+
+<div class="chart">
+<svg id="fig4svg" viewBox="110 40 860 570" role="img" aria-label="Monthly rent per bed chart: each project has a distinct color, with stacked bed icons indicating the number of beds per room type, compared with eight university hostels and Kowloon two-bedroom unit rent">
+
+  <defs>
+    <linearGradient id="bandV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.16" stop-color="#FAF9F5"/>
+      <stop offset="0.84" stop-color="#FAF9F5"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="fadeR" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <rect x="190" y="130" width="760" height="100" fill="url(#bandV)"></rect>
+  <rect x="190" y="330" width="760" height="100" fill="url(#bandV)"></rect>
+  <rect x="885" y="130" width="65" height="400" fill="url(#fadeR)"></rect>
+
+  <g>
+    <line class="grid" x1="190" y1="130" x2="190" y2="530"></line>
+    <line class="grid" x1="362.7" y1="130" x2="362.7" y2="530"></line>
+    <line class="grid" x1="535.5" y1="130" x2="535.5" y2="530"></line>
+    <line class="grid" x1="708.2" y1="130" x2="708.2" y2="530"></line>
+    <line class="grid" x1="880.9" y1="130" x2="880.9" y2="530"></line>
+  </g>
+  <line x1="190" y1="122" x2="190" y2="538" stroke="#8B939D" stroke-width="1.5"></line>
+
+  <text class="grp" x="178" y="185" text-anchor="end">Single</text>
+  <text class="grp" x="178" y="285" text-anchor="end">Twin</text>
+  <text class="grp" x="178" y="385" text-anchor="end">Triple</text>
+  <text class="grp" x="178" y="485" text-anchor="end">Quad</text>
+
+  <line class="refline" x1="777.3" y1="130" x2="777.3" y2="530"></line>
+  <text class="reftext" x="787" y="96">Kowloon 431 sq ft</text>
+  <text class="reftext" x="787" y="118">2-bedroom approx. HK$17000</text>
+
+  <line x1="182" y1="530" x2="958" y2="530" stroke="#8B939D" stroke-width="1.5"></line>
+  <text class="axis" x="190" y="554" text-anchor="middle">HK$0</text>
+  <text class="axis" x="362.7" y="554" text-anchor="middle">HK$5000</text>
+  <text class="axis" x="535.5" y="554" text-anchor="middle">HK$10000</text>
+  <text class="axis" x="708.2" y="554" text-anchor="middle">HK$15000</text>
+  <text class="axis" x="880.9" y="554" text-anchor="middle">HK$20000</text>
+  <text class="axis-t" x="190" y="584">Monthly rent per bed (HK$/month)</text>
+
+<g class="pt" style="color:#9AA3AE"><title>Eight Universities Average Single: HK$4000</title>
+  <use href="#bedS" x="318.58" y="202.40" />
+  </g>
+  <g class="pt" style="color:#0E9474"><title>Brim (Kwai Chung) Single: HK$9900 – HK$18000</title>
+  <use href="#bedH" x="802.21" y="202.40" />
+  <use href="#bedS" x="522.40" y="202.40" />
+  </g>
+  <g class="pt" style="color:#8A4FC4"><title>One Pace · 38 (Mid-Levels West) Single: HK$16000 – HK$18000</title>
+  <use href="#bedH" x="802.21" y="178.40" />
+  <use href="#bedS" x="733.12" y="178.40" />
+  </g>
+  <g class="pt" style="color:#B03A6E"><title>One Pace · 117 (Tsim Sha Tsui) Single: HK$18000 – HK$20000</title>
+  <use href="#bedH" x="871.30" y="154.40" />
+  <use href="#bedS" x="802.21" y="154.40" />
+  </g>
+  <g class="pt" style="color:#9AA3AE"><title>Eight Universities Average Twin: HK$2500</title>
+  <rect x="267.86" y="314.80" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <use href="#bedS" x="266.76" y="300.40" />
+  </g>
+  <g class="pt" style="color:#0E9474"><title>Brim (Kwai Chung) Twin: HK$6800 – HK$7900</title>
+  <rect x="454.41" y="314.80" width="17.0" height="3.2" rx="1.6" fill="#fff" stroke="currentColor" stroke-width="1"/>
+  <use href="#bedH" x="453.31" y="300.40" />
+  <rect x="416.41" y="314.80" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <use href="#bedS" x="415.31" y="300.40" />
+  </g>
+  <g class="pt" style="color:#B8860B"><title>Yihui · Kai Tak Twin: HK$8500</title>
+  <rect x="475.13" y="288.80" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <use href="#bedS" x="474.03" y="274.40" />
+  </g>
+  <g class="pt" style="color:#1F4E79"><title>Risun · Kai Tak Twin: HK$8500</title>
+  <rect x="475.13" y="262.80" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <use href="#bedS" x="474.03" y="248.40" />
+  </g>
+  <g class="pt" style="color:#B03A6E"><title>One Pace · 117 (Tsim Sha Tsui) Twin: HK$9100</title>
+  <rect x="495.86" y="314.80" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <use href="#bedS" x="494.76" y="300.40" />
+  </g>
+  <g class="pt" style="color:#8A4FC4"><title>One Pace · 38 (Mid-Levels West) Twin: HK$11300 – HK$14000</title>
+  <rect x="665.13" y="314.80" width="17.0" height="3.2" rx="1.6" fill="#fff" stroke="currentColor" stroke-width="1"/>
+  <use href="#bedH" x="664.03" y="300.40" />
+  <rect x="571.86" y="314.80" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <use href="#bedS" x="570.76" y="300.40" />
+  </g>
+  <g class="pt" style="color:#9AA3AE"><title>Eight Universities Average Triple: HK$1500</title>
+  <rect x="233.32" y="410.60" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <rect x="233.32" y="414.80" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <use href="#bedS" x="232.22" y="396.20" />
+  </g>
+  <g class="pt" style="color:#B8860B"><title>Yihui · Kai Tak Triple: HK$6100 – HK$6400</title>
+  <rect x="409.01" y="410.60" width="17.0" height="3.2" rx="1.6" fill="#fff" stroke="currentColor" stroke-width="1"/>
+  <rect x="409.01" y="414.80" width="17.0" height="3.2" rx="1.6" fill="#fff" stroke="currentColor" stroke-width="1"/>
+  <use href="#bedH" x="407.91" y="396.20" />
+  <rect x="385.81" y="410.60" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <rect x="385.81" y="414.80" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <use href="#bedS" x="384.71" y="396.20" />
+  </g>
+  <g class="pt" style="color:#1F4E79"><title>Risun · Kai Tak Triple: HK$7838 – HK$9057</title>
+  <rect x="494.37" y="410.60" width="17.0" height="3.2" rx="1.6" fill="#fff" stroke="currentColor" stroke-width="1"/>
+  <rect x="494.37" y="414.80" width="17.0" height="3.2" rx="1.6" fill="#fff" stroke="currentColor" stroke-width="1"/>
+  <use href="#bedH" x="493.27" y="396.20" />
+  <rect x="452.26" y="410.60" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <rect x="452.26" y="414.80" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <use href="#bedS" x="451.16" y="396.20" />
+  </g>
+  <g class="pt" style="color:#9AA3AE"><title>Eight Universities Average Quad: HK$1350</title>
+  <rect x="228.14" y="506.40" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <rect x="228.14" y="510.60" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <rect x="228.14" y="514.80" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <use href="#bedS" x="227.04" y="492.00" />
+  </g>
+  <g class="pt" style="color:#B8860B"><title>Yihui · Kai Tak Quad: HK$6100 – HK$6400</title>
+  <rect x="409.01" y="506.40" width="17.0" height="3.2" rx="1.6" fill="#fff" stroke="currentColor" stroke-width="1"/>
+  <rect x="409.01" y="510.60" width="17.0" height="3.2" rx="1.6" fill="#fff" stroke="currentColor" stroke-width="1"/>
+  <rect x="409.01" y="514.80" width="17.0" height="3.2" rx="1.6" fill="#fff" stroke="currentColor" stroke-width="1"/>
+  <use href="#bedH" x="407.91" y="492.00" />
+  <rect x="385.81" y="506.40" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <rect x="385.81" y="510.60" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <rect x="385.81" y="514.80" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <use href="#bedS" x="384.71" y="492.00" />
+  </g>
+  <g class="pt" style="color:#1F4E79"><title>Risun · Kai Tak Quad: HK$7838 – HK$9057</title>
+  <rect x="494.37" y="506.40" width="17.0" height="3.2" rx="1.6" fill="#fff" stroke="currentColor" stroke-width="1"/>
+  <rect x="494.37" y="510.60" width="17.0" height="3.2" rx="1.6" fill="#fff" stroke="currentColor" stroke-width="1"/>
+  <rect x="494.37" y="514.80" width="17.0" height="3.2" rx="1.6" fill="#fff" stroke="currentColor" stroke-width="1"/>
+  <use href="#bedH" x="493.27" y="492.00" />
+  <rect x="452.26" y="506.40" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <rect x="452.26" y="510.60" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <rect x="452.26" y="514.80" width="17.0" height="3.2" rx="1.6" fill="currentColor"/>
+  <use href="#bedS" x="451.16" y="492.00" />
+  </g>
+
+<text class="vlab" x="328.18" y="194.40" text-anchor="middle">HK$4000</text>
+  <text class="vlab" x="276.36" y="292.40" text-anchor="middle">HK$2500</text>
+  <text class="vlab" x="241.82" y="388.20" text-anchor="middle">HK$1500</text>
+  <text class="vlab" x="236.64" y="484.00" text-anchor="middle">HK$1350</text>
+  <text class="vlab" x="896" y="188.00" text-anchor="end">Near HK$20000</text>
+
+</svg>
+</div>
+
+<div class="note">
+  <h3>Notes</h3>
+  <ul>
+    <li>Private flat HK$17000 is "rent per unit"; student accommodation and university hostels are "rent per bed".</li>
+    <li>University hostel is the estimated monthly rent per bed converted from the 2025/26 undergraduate hostel fees of the eight universities by room type: single approx. HK$4000, twin approx. HK$2500, triple approx. HK$1500, quad approx. HK$1350 (excluding utilities, air-conditioning and meals; quad rooms are mainly at CUHK).</li>
+    <li>Each project has one color, and different room types are distinguished by the number of stacked bed icons (one layer = one bed; single = 1 bed, twin = 2 beds, and so on; only the top bed of the stack shows details, while the beds below are shown as neatly stacked mattresses). All room types of the same project share the same color. Rents are public quotes; a rent range for the same room type is shown with a solid bed (lower bound) and a hollow bed (upper bound) side by side; a single quote is shown with a solid bed only, without averaging; Yihui and Risun have the same quote for triple and quad rooms, so the two rows have the same value; Brim is the off-campus student hostel of CityU and HKBU in Kwai Chung.</li>
+  </ul>
+</div>
+<div class="source">Source: Public quotes from each project; the average monthly rent of a 431 sq ft private residential unit in Kowloon is HK$17000 according to HKSAR Government data, cited by Centaline Property's Chen Yongjie in Ta Kung Pao (June 2026); hostel fees of the eight universities are 2025/26 figures published by each institution and compiled by Wen Wei Po. Graphic: Cai Yunfei</div>
+
+<button class="caption-toggle-btn" type="button" onclick="toggleCaption('fig4-caption', this)">Show Caption (Alt Text)</button>
+<div id="fig4-caption" class="caption-text">
+  Caption: By room type (single, twin, triple, quad), the horizontal axis is monthly rent per bed (HK$/month). Each student accommodation project uses a fixed color, and room types are represented by the number of stacked beds: one layer represents one bed; single room one bed, twin room two layers, triple room three layers, quad room four layers (only the top bed of the stack shows headboard details, while the beds below are shown as neatly stacked mattresses). All room types of the same project share the same color. Solid beds indicate the lower bound, hollow beds indicate the upper bound; the two side by side form the rent range for that room type, and a single quote is shown with a solid bed only. Grey bed icons are the average prices of the eight university hostels by room type (single approx. HK$4000, twin approx. HK$2500, triple approx. HK$1500, quad approx. HK$1350); the red dashed line is the whole-unit rent of a 431 sq ft two-bedroom flat in Kowloon (approx. HK$17000). The highest single-room quote is close to HK$20000, already higher than the whole-unit rent of a two-bedroom flat.
+</div>
+
+<script>
+function toggleCaption(id, btn){
+  var el = document.getElementById(id);
+  if (el.style.display === 'block'){
+    el.style.display = 'none';
+    btn.textContent = 'Show Caption (Alt Text)';
+  } else {
+    el.style.display = 'block';
+    btn.textContent = 'Hide Caption';
+  }
+}
+
+(function(){
+  var svg = document.getElementById('fig4svg');
+  var VBW = 860;
+  function fitText(){
+    var w = svg.getBoundingClientRect().width || svg.parentNode.clientWidth;
+    if (!w) return;
+    var k = w / VBW;
+    svg.style.fontSize = Math.min(16, Math.max(7, 13 / k)).toFixed(2) + 'px';
+  }
+  fitText();
+  window.addEventListener('resize', fitText);
+  window.addEventListener('load', fitText);
+})();
+</script>
+
+</body>
+</html>
